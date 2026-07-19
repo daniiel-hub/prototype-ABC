@@ -16,6 +16,11 @@ body {
   background: linear-gradient(to bottom, var(--top) 0%, var(--mid) 45%, var(--bottom) 100%);
   color: white;
   min-height: 100vh;
+}
+
+.page {
+  width: 100%;
+  min-height: 100vh;
   overflow-x: hidden;
 }
 
@@ -116,7 +121,6 @@ body {
   text-align: center;
   padding: 88px 20px 56px;
   position: relative;
-  overflow: hidden;
   flex-direction: column;
 }
 
@@ -462,6 +466,10 @@ body {
 
   .leader-card img {
     height: 220px;
+  }
+
+  .kontak {
+    padding: 32px 16px 28px;
   }
 
   .kontak-card {
