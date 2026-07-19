@@ -15,7 +15,8 @@ function closeMenu() {
 
 hamburger.addEventListener("click", (e) => {
   e.stopPropagation();
-  sidebar.classList.contains("open") ? closeMenu() : openMenu();
+  if (sidebar.classList.contains("open")) closeMenu();
+  else openMenu();
 });
 
 overlay.addEventListener("click", closeMenu);
@@ -25,15 +26,13 @@ sidebar.addEventListener("click", (e) => {
 });
 
 document.addEventListener("click", (e) => {
-  if (sidebar.classList.contains("open") && !sidebar.contains(e.target) && e.target !== hamburger) {
+  if (!sidebar.contains(e.target) && !hamburger.contains(e.target)) {
     closeMenu();
   }
 });
 
 sidebar.querySelectorAll("a").forEach((link) => {
-  link.addEventListener("click", () => {
-    closeMenu();
-  });
+  link.addEventListener("click", closeMenu);
 });
 
 let lastScrollY = window.scrollY;
@@ -49,10 +48,11 @@ window.addEventListener("scroll", () => {
   }
 
   lastScrollY = currentScrollY;
+  updateBodyGradient();
 });
 
 const track = document.getElementById("carouselTrack");
-const slides = Array.from(track.children);
+const originalSlides = Array.from(track.children);
 const modal = document.getElementById("imageModal");
 const modalImage = document.getElementById("modalImage");
 const modalClose = document.getElementById("modalClose");
@@ -65,7 +65,8 @@ let startX = 0;
 let isDragging = false;
 let currentTranslate = 0;
 let prevTranslate = 0;
-let autoTimer;
+let autoTimer = null;
+let slideCount = originalSlides.length;
 
 function updateStep() {
   step = track.getBoundingClientRect().width;
@@ -99,20 +100,21 @@ function startAuto() {
 
 function stopAuto() {
   if (autoTimer) clearInterval(autoTimer);
+  autoTimer = null;
 }
 
 function rebuildCarousel() {
-  const total = slides.length;
   track.innerHTML = "";
 
-  const clonesBefore = slides.map((slide) => slide.cloneNode(true));
-  const clonesAfter = slides.map((slide) => slide.cloneNode(true));
+  const clonesBefore = originalSlides.map((slide) => slide.cloneNode(true));
+  const clonesAfter = originalSlides.map((slide) => slide.cloneNode(true));
 
   clonesBefore.forEach((slide) => track.appendChild(slide));
-  slides.forEach((slide) => track.appendChild(slide.cloneNode(true)));
+  originalSlides.forEach((slide) => track.appendChild(slide.cloneNode(true)));
   clonesAfter.forEach((slide) => track.appendChild(slide));
 
-  index = total;
+  slideCount = originalSlides.length;
+  index = slideCount;
   updateStep();
   currentTranslate = -index * step;
   prevTranslate = currentTranslate;
@@ -121,21 +123,20 @@ function rebuildCarousel() {
 }
 
 track.addEventListener("transitionend", () => {
-  const total = slides.length;
-
-  if (index >= total * 2) {
-    index = total;
+  if (index >= slideCount * 2) {
+    index = slideCount;
     moveTo(index, false);
   }
 
-  if (index < total) {
-    index = total * 2 - 1;
+  if (index < slideCount) {
+    index = slideCount * 2 - 1;
     moveTo(index, false);
   }
 });
 
 function getX(e) {
-  return e.type.includes("mouse") ? e.pageX : e.touches[0].clientX;
+  if (e.type.startsWith("mouse")) return e.pageX;
+  return e.touches[0].clientX;
 }
 
 function pointerDown(e) {
@@ -161,7 +162,8 @@ function pointerUp() {
   const movedBy = currentTranslate - prevTranslate;
 
   if (Math.abs(movedBy) > step / 4) {
-    movedBy < 0 ? nextSlide() : prevSlide();
+    if (movedBy < 0) nextSlide();
+    else prevSlide();
   } else {
     moveTo(index);
   }
@@ -195,7 +197,7 @@ track.addEventListener("mousemove", pointerMove);
 track.addEventListener("mouseup", pointerUp);
 track.addEventListener("mouseleave", pointerUp);
 track.addEventListener("touchstart", pointerDown, { passive: true });
-track.addEventListener("touchmove", pointerMove, { passive: true });
+track.addEventListener("touchmove", pointerMove, { passive: false });
 track.addEventListener("touchend", pointerUp);
 
 modalClose.addEventListener("click", () => {
@@ -214,7 +216,22 @@ window.addEventListener("resize", () => {
   updateStep();
   currentTranslate = -index * step;
   setPosition(false);
+  updateBodyGradient();
 });
+
+function updateBodyGradient() {
+  const maxScroll = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
+  const progress = Math.min(window.scrollY / maxScroll, 1);
+
+  const lerp = (a, b) => Math.round(a + (b - a) * progress);
+
+  const top = `rgb(${lerp(229, 17)}, ${lerp(231, 24)}, ${lerp(235, 39)})`;
+  const mid = `rgb(${lerp(156, 55)}, ${lerp(163, 65)}, ${lerp(175, 81)})`;
+  const bottom = `rgb(${lerp(55, 17)}, ${lerp(65, 24)}, ${lerp(81, 39)})`;
+
+  document.body.style.background = `linear-gradient(to bottom, ${top} 0%, ${mid} 45%, ${bottom} 100%)`;
+}
 
 rebuildCarousel();
 startAuto();
+updateBodyGradient();

@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Navbar</title>
+  <title>Perusahaan ABC</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <nav class="navbar">
     <div class="logo">
-      <a href="#home">
+      <a href="#home" aria-label="Ke home">
         <img src="img/llogo.jpeg" alt="Logo Perusahaan" class="logo-img">
       </a>
     </div>
@@ -19,7 +19,7 @@
 
   <div class="overlay" id="overlay"></div>
 
-  <div class="sidebar" id="sidebar">
+  <div class="sidebar" id="sidebar" aria-label="Menu navigasi">
     <a href="#home">Home</a>
     <a href="#tentang">Tentang</a>
     <a href="#pemimpin">Anggota</a>
@@ -29,40 +29,49 @@
   <section id="home" class="home">
     <div class="section-content hero-content">
       <h2>ABC</h2>
-      <p>Perusahaan ABC adalah perusahaan yang membantu client dalam nenbuat sebuah web</p>
-    </div>
-
-    <div class="wave-divider">
-      <svg viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0,64 C240,10 480,118 720,64 C960,10 1200,118 1440,64 L1440,120 L0,120 Z" fill="#2f7d32"></path>
-      </svg>
+      <p>Perusahaan ABC adalah perusahaan yang membantu client dalam membuat sebuah web</p>
     </div>
   </section>
 
   <section id="tentang" class="tentang">
     <div class="section-content">
       <h2>Tentang Kami</h2>
-      <p>kami berdiri pada tahun 2008 hingga saat ini dengan lebih dari 1000 client.
-      kami mampu mebuat web menjadi lebih menarik yang memuaskan client</p>
+      <p>
+        Kami berdiri pada tahun 2008 hingga saat ini dengan lebih dari 1000 client.
+        Kami mampu membuat web menjadi lebih menarik dan memuaskan client.
+      </p>
 
       <div class="carousel" id="carousel">
         <button class="carousel-btn prev" id="prevBtn" aria-label="Slide sebelumnya">❮</button>
 
         <div class="carousel-track" id="carouselTrack">
-          <div class="carousel-slide"><img src="img/slide1.jpg" alt="Slide 1"></div>
-          <div class="carousel-slide"><img src="img/slide2.jpg" alt="Slide 2"></div>
-          <div class="carousel-slide"><img src="img/slide3.jpg" alt="Slide 3"></div>
-          <div class="carousel-slide"><img src="img/slide4.jpg" alt="Slide 4"></div>
+          <div class="carousel-slide">
+            <div class="carousel-media">
+              <img src="img/slide1.jpg" alt="Slide 1" class="previewable">
+            </div>
+          </div>
+
+          <div class="carousel-slide">
+            <div class="carousel-media">
+              <img src="img/slide2.jpg" alt="Slide 2" class="previewable">
+            </div>
+          </div>
+
+          <div class="carousel-slide">
+            <div class="carousel-media">
+              <img src="img/slide3.jpg" alt="Slide 3" class="previewable">
+            </div>
+          </div>
+
+          <div class="carousel-slide">
+            <div class="carousel-media">
+              <img src="img/slide4.jpg" alt="Slide 4" class="previewable">
+            </div>
+          </div>
         </div>
 
         <button class="carousel-btn next" id="nextBtn" aria-label="Slide berikutnya">❯</button>
       </div>
-    </div>
-
-    <div class="wave-divider">
-      <svg viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0,64 C240,10 480,118 720,64 C960,10 1200,118 1440,64 L1440,120 L0,120 Z" fill="#255f28"></path>
-      </svg>
     </div>
   </section>
 
@@ -72,29 +81,23 @@
 
       <div class="leader-grid">
         <div class="leader-card">
-          <img src="img/Antony.jpg" alt="Pemimpin 1">
+          <img src="img/Antony.jpg" alt="Antony Halim" class="previewable">
           <h3>Antony Halim</h3>
           <p>Direktur Utama</p>
         </div>
 
         <div class="leader-card">
-          <img src="img/ghinting.jpg" alt="Pemimpin 2">
+          <img src="img/ghinting.jpg" alt="Antony Ghinting" class="previewable">
           <h3>Antony Ghinting</h3>
           <p>Manajer Operasional</p>
         </div>
 
         <div class="leader-card">
-          <img src="img/fernandes.jpg" alt="Pemimpin 3">
+          <img src="img/fernandes.jpg" alt="Antonio Fernandes" class="previewable">
           <h3>Antonio Fernandes</h3>
           <p>Manajer Marketing</p>
         </div>
       </div>
-    </div>
-
-    <div class="wave-divider">
-      <svg viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0,64 C240,10 480,118 720,64 C960,10 1200,118 1440,64 L1440,120 L0,120 Z" fill="#1d4d21"></path>
-      </svg>
     </div>
   </section>
 
@@ -119,11 +122,11 @@
     </div>
   </footer>
 
-  <div class="image-modal" id="imageModal">
+  <div class="image-modal" id="imageModal" aria-hidden="true">
     <button class="modal-close" id="modalClose" aria-label="Tutup">×</button>
     <img id="modalImage" src="" alt="Preview gambar">
   </div>
 
   <script src="script.js"></script>
 </body>
-</html>
+</html>s

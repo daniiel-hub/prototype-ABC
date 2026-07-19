@@ -10,7 +10,10 @@ html {
 }
 
 body {
-  background: #dff7dc;
+  --top: #e5e7eb;
+  --mid: #9ca3af;
+  --bottom: #374151;
+  background: linear-gradient(to bottom, var(--top) 0%, var(--mid) 45%, var(--bottom) 100%);
   color: white;
   min-height: 100vh;
   overflow-x: hidden;
@@ -105,80 +108,63 @@ body {
 
 .home,
 .tentang,
-.pemimpin {
-  min-height: 78vh;
+.pemimpin,
+.kontak {
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 80px 20px 50px;
+  padding: 88px 20px 56px;
   position: relative;
   overflow: hidden;
   flex-direction: column;
 }
 
+.home,
+.tentang,
+.pemimpin {
+  min-height: 78vh;
+}
+
 .home {
-  background: linear-gradient(to bottom, #cfe8c9 0%, #8fcb88 50%, #256b2c 100%);
+  background: linear-gradient(to bottom, #f3f4f6 0%, #d1d5db 50%, #6b7280 100%);
 }
 
 .tentang {
-  background: linear-gradient(to bottom, #2f7d32 0%, #255f28 100%);
+  background: linear-gradient(to bottom, #6b7280 0%, #4b5563 100%);
 }
 
 .pemimpin {
-  background: linear-gradient(to bottom, #255f28 0%, #1d4d21 100%);
+  background: linear-gradient(to bottom, #4b5563 0%, #374151 100%);
 }
 
 .kontak {
-  background: linear-gradient(to bottom, #1d4d21 0%, #17411b 100%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 40px 20px;
+  background: linear-gradient(to bottom, #374151 0%, #111827 100%);
   min-height: auto;
+  padding: 44px 20px;
 }
 
 .section-content {
-  max-width: 1000px;
+  max-width: 1100px;
   width: 100%;
-}
-
-.hero-content {
-  margin-top: -8px;
+  padding: 0 16px;
 }
 
 .section-content h2 {
-  font-size: 48px;
+  font-size: clamp(32px, 4vw, 48px);
   margin-bottom: 14px;
 }
 
 .section-content p {
-  font-size: 18px;
+  font-size: clamp(16px, 1.6vw, 18px);
   line-height: 1.7;
 }
 
-.tentang .section-content {
-  margin-top: -6px;
-  padding-bottom: 88px;
-}
-
-.wave-divider {
-  position: absolute;
-  left: 0;
-  bottom: -14px;
-  width: 100%;
-  height: 120px;
-  line-height: 0;
-  overflow: hidden;
-  z-index: 2;
-  transform: translateY(1px);
-}
-
-.wave-divider svg {
-  display: block;
-  width: 100%;
-  height: 100%;
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 }
 
 .carousel {
@@ -187,10 +173,10 @@ body {
   max-width: 950px;
   overflow: hidden;
   border-radius: 24px;
-  margin-top: 18px;
-  margin-bottom: 34px;
+  margin: 20px auto 34px;
   cursor: grab;
   touch-action: pan-y;
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .carousel:active {
@@ -199,29 +185,40 @@ body {
 
 .carousel-track {
   display: flex;
-  gap: 0;
+  width: 100%;
   will-change: transform;
   transition: transform 0.35s ease;
 }
 
 .carousel-slide {
   flex: 0 0 100%;
+  width: 100%;
+  min-height: 320px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   user-select: none;
 }
 
-.carousel-slide img {
-  width: 100%;
+.carousel-media {
+  width: min(720px, 100%);
   height: 320px;
-  object-fit: contain;
-  background: rgba(255, 255, 255, 0.08);
   border-radius: 18px;
-  display: block;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.carousel-slide img:hover {
-  transform: scale(1.02);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+.carousel-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  cursor: pointer;
 }
 
 .carousel-btn {
@@ -246,11 +243,11 @@ body {
 }
 
 .carousel-btn.prev {
-  left: 14px;
+  left: 18px;
 }
 
 .carousel-btn.next {
-  right: 14px;
+  right: 18px;
 }
 
 .leader-grid {
@@ -270,7 +267,7 @@ body {
 
 .leader-card img {
   width: 100%;
-  height: 220px;
+  height: clamp(220px, 28vw, 260px);
   object-fit: cover;
   border-radius: 18px;
   margin-bottom: 16px;
@@ -289,35 +286,44 @@ body {
 .kontak-card {
   max-width: 700px;
   width: 100%;
+  margin: 0 auto;
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 24px;
-  padding: 24px 20px;
+  padding: 28px 22px;
   backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
 }
 
 .kontak-desc {
-  margin-top: 8px;
-  margin-bottom: 18px;
+  margin: 0;
   font-size: 16px;
+  line-height: 1.6;
 }
 
 .social-links {
+  width: 100%;
   display: flex;
   justify-content: center;
+  align-items: stretch;
   gap: 14px;
   flex-wrap: wrap;
-  margin-bottom: 14px;
+  margin: 0;
 }
 
 .social-btn {
+  min-width: 180px;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
   text-decoration: none;
   color: white;
   background: rgba(255, 255, 255, 0.12);
-  padding: 10px 16px;
+  padding: 12px 16px;
   border-radius: 14px;
   transition: 0.25s ease;
 }
@@ -336,6 +342,7 @@ body {
 .copyright {
   font-size: 12px;
   opacity: 0.8;
+  margin: 0;
 }
 
 .image-modal {
@@ -380,20 +387,12 @@ body {
     grid-template-columns: 1fr;
   }
 
-  .section-content h2 {
-    font-size: 36px;
+  .carousel-slide {
+    min-height: 280px;
   }
 
-  .section-content p {
-    font-size: 16px;
-  }
-
-  .carousel-slide img {
+  .carousel-media {
     height: 280px;
-  }
-
-  .tentang .section-content {
-    padding-bottom: 78px;
   }
 }
 
@@ -405,10 +404,6 @@ body {
     padding: 78px 18px 44px;
   }
 
-  .hero-content {
-    margin-top: 0;
-  }
-
   .section-content h2 {
     font-size: 32px;
   }
@@ -418,8 +413,13 @@ body {
     margin-bottom: 28px;
   }
 
-  .carousel-slide img {
+  .carousel-slide {
+    min-height: 220px;
+  }
+
+  .carousel-media {
     height: 220px;
+    width: 100%;
   }
 
   .carousel-btn {
@@ -437,7 +437,7 @@ body {
     height: 240px;
   }
 
-  .tentang .section-content {
-    padding-bottom: 70px;
+  .kontak-card {
+    padding: 22px 16px;
   }
 }
