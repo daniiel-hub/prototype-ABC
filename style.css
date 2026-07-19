@@ -386,7 +386,6 @@ body {
 @media (max-width: 900px) {
   .leader-grid {
     grid-template-columns: repeat(2, minmax(220px, 1fr));
-    overflow-x: auto;
   }
 
   .carousel-slide {
