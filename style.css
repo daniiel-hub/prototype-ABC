@@ -255,6 +255,7 @@ body {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
+  width: 100%;
 }
 
 .leader-card {
@@ -384,7 +385,8 @@ body {
 
 @media (max-width: 900px) {
   .leader-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(220px, 1fr));
+    overflow-x: auto;
   }
 
   .carousel-slide {
@@ -434,14 +436,18 @@ body {
   }
 
   .leader-grid {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
     gap: 14px;
-    padding-bottom: 8px;
-    scroll-snap-type: x mandatory;
+    padding-bottom: 10px;
+    width: 100%;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
+    justify-content: flex-start !important;
+    align-items: stretch;
   }
 
   .leader-grid::-webkit-scrollbar {
@@ -449,7 +455,9 @@ body {
   }
 
   .leader-card {
-    flex: 0 0 82%;
+    flex: 0 0 82% !important;
+    min-width: 82%;
+    max-width: 82%;
     scroll-snap-align: start;
   }
 
